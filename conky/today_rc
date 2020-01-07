@@ -1,0 +1,66 @@
+conky.config = {
+	background = false,
+	font = 'sans:size=10',
+--xftfont sans:size=10
+	use_xft = true,
+	xftalpha = 0.9,
+	update_interval = 1,
+	imlib_cache_size = 0,
+	total_run_times = 0,
+	own_window = true,
+	own_window_type = 'dock',
+--#own_window_transparent yes
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+
+-- Uncomment and adjust the line below for window's opacity
+	own_window_argb_value = 180,
+	own_window_colour = '#0d0f31',
+	double_buffer = true,
+	minimum_width = 225,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = true,
+	default_color = '#101010',
+	default_shade_color = '#101010',
+	alignment = 'top_left',
+	gap_x = 40,
+	gap_y = 40,
+	no_buffers = true,
+	cpu_avg_samples = 1,
+	uppercase = false,
+	border_inner_margin = 15,
+
+--colors
+	color1 = '#46BDFF',
+	color2 = '#FA2FAC',
+	color3 = '#D3D7CF',
+
+};
+
+conky.text = [[
+
+${color3}${font Open Sans:pixelsize=64}${alignc}${time %I:%M%P}${font}
+
+${color3}${font Open Sans:pixelsize=20:bold}${alignc}${time %A}${font}
+${color3}${font Open Sans:pixelsize=20:bold}${alignc}${time %d %B %Y}${font}
+
+
+
+${color3}${font ConkyWeather:size=24:bold}${offset 112.5}${execi 120 /home/jimmeex/conky-cards/conkySimpleForecast -d font}${font}
+${color3}${font Open Sans:pixelsize=20:bold}${alignc}${execi 120 /home/jimmeex/conky-cards/conkySimpleForecast -d condition} ${color3}${font Open Sans:pixelsize=20:bold}${alignc}${execi 120 /home/jimmeex/conky-cards/conkySimpleForecast -d temp}°C${font}
+${color1}${font Open Sans:pixelsize=14:bold}${alignc} Min: ${execi 120 /home/jimmeex/conky-cards/conkySimpleForecast -d temp_min}°C  ${color2}${font Open Sans:pixelsize=14:bold}Max: ${execi 120 /home/jimmeex/conky-cards/conkySimpleForecast -d temp_max}°C${font}${font}
+${color1}${font Open Sans:pixelsize=14:bold}${alignc}Sunrise: ${execi 120 /home/jimmeex/conky-cards/conkySimpleForecast -d sunrise}  ${color2}${font Open Sans:pixelsize=14:bold}Sunset: ${execi 120 /home/jimmeex/conky-cards/conkySimpleForecast -d sunset}${font}${font}
+
+
+
+${image /home/jimmeex/Pictures/Icons/playerctl_prev.png -p 50,330 -s 50x50 -f 86400}
+${image /home/jimmeex/Pictures/Icons/playerctl_toggle.png -p 100,330 -s 50x50 -f 86400}
+${image /home/jimmeex/Pictures/Icons/playerctl_next.png -p 150,330 -s 50x50 -f 86400}
+${color3}${execpi 4 python3 /home/jimmeex/conky-cards/mediaplayer.py}
+
+${voffset 140}
+
+${image /home/jimmeex/Pictures/Wallpapers/mikael-gustafsson-amongtrees-2-8.jpg -p 0,500 -s 260x170 -f 86400}
+]]

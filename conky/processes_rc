@@ -1,0 +1,91 @@
+conky.config = {
+	background = false,
+	font = 'sans:size=10',
+--xftfont sans:size=10
+	use_xft = true,
+	xftalpha = 0.9,
+	update_interval = 1,
+	imlib_cache_size = 0,
+	total_run_times = 0,
+	own_window = true,
+	own_window_type = 'dock',
+--own_window_transparent yes
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_argb_visual = true,
+	own_window_argb_value = 180,
+	own_window_colour = '#0d0f31',
+	double_buffer = true,
+	minimum_width = 225,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = true,
+	default_color = '#101010',
+	default_shade_color = '#101010',
+	default_bar_size = 140,
+	alignment = 'top_left',
+	gap_x = 360,
+	gap_y = 40,
+	no_buffers = true,
+	cpu_avg_samples = 1,
+	uppercase = false,
+	border_inner_margin = 15,
+
+--colors
+	color1 = '#46BDFF',
+	color2 = '#FA2FAC',
+	color3 = '#D3D7CF',
+
+};
+
+conky.text = [[
+${color1}${font Oswald:size=10:bold}CPU/GPU ${color2} ${hr 2}
+${color3}${font DroidSansMono Nerd Font:size=9}
+Uptime: $alignr$uptime
+CPU Clock Speed: ${alignr}${freq_g} GHz
+${color3}CPU  : ${cpu cpu0}% ${color1}${cpubar cpu0 6,35}${alignr}${color3}CPU6 : ${cpu cpu6}% ${color1}${cpubar cpu6 6,35}
+${color3}CPU1 : ${cpu cpu1}% ${color1}${cpubar cpu1 6,35}${alignr}${color3}CPU7 : ${cpu cpu7}% ${color1}${cpubar cpu7 6,35}
+${color3}CPU2 : ${cpu cpu2}% ${color1}${cpubar cpu2 6,35}${alignr}${color3}CPU8 : ${cpu cpu8}% ${color1}${cpubar cpu8 6,35}
+${color3}CPU3 : ${cpu cpu3}% ${color1}${cpubar cpu3 6,35}${alignr}${color3}CPU9 : ${cpu cpu9}% ${color1}${cpubar cpu9 6,35}
+${color3}CPU4 : ${cpu cpu4}% ${color1}${cpubar cpu4 6,35}${alignr}${color3}CPU10: ${cpu cpu10}% ${color1}${cpubar cpu10 6,35}
+${color3}CPU5 : ${cpu cpu5}% ${color1}${cpubar cpu5 6,35}${alignr}${color3}CPU11: ${cpu cpu11}% ${color1}${cpubar cpu11 6,35}
+
+
+${color2}${font Oswald:pixelsize=10:bold}Top CPU Processes ${alignr}   CPU      MEM
+${color3}${font DroidSansMono Nerd Font:size=9}1. ${top name 1} $alignr  ${top cpu 1}${top mem 1}
+2. ${top name 2} $alignr  ${top cpu 2}${top mem 2}
+3. ${top name 3} $alignr  ${top cpu 3}${top mem 3}
+
+GPU: ${execi 4 nvidia-smi --query-gpu=gpu_name --format=csv,noheader,nounits}
+${color3}Usage: ${execi 4 nvidia-smi --query-gpu=utilization.memory --format=csv,noheader,nounits}% ${offset 30}${color1}${execbar nvidia-smi --query-gpu=utilization.memory --format=csv,noheader,nounits}
+${color3}${alignr}${execi 4 nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits}MiB / ${execi 4 nvidia-smi --query-gpu=memory.total --format=csv,noheader,nounits}MiB
+
+
+${color1}${font Oswald:size=10:bold}MEMORY ${color2} ${hr 2}
+
+${color3}${font DroidSansMono Nerd Font:size=9}RAM: ${memperc}% ${alignr}${color1}${membar 5,140}
+${color3}${font DroidSansMono Nerd Font:size=9}${alignr}${mem} / ${memmax}
+${color3}${font DroidSansMono Nerd Font:size=9}SWAP: ${swapperc}% ${alignr}${color1}${swapbar 5,140}
+${color3}${font DroidSansMono Nerd Font:size=9}${alignr}${swap} / ${swapmax}
+
+
+${color2}${font Oswald:pixelsize=10:bold}Top Memory Processes ${alignr}   CPU      MEM
+${color3}${font DroidSansMono Nerd Font:size=9}1. ${top name 1} $alignr  ${top_mem cpu 1}${top_mem mem 1}
+2. ${top_mem name 2} $alignr  ${top_mem cpu 2}${top_mem mem 2}
+3. ${top_mem name 3} $alignr  ${top_mem cpu 3}${top_mem mem 3}
+
+
+${font Oswald:bold:size=10}${color1}STORAGE ${color2} ${hr 2}
+
+${color3}${font DroidSansMono Nerd Font:size=9}Root: ${fs_used_perc /}%${alignr} ${color1}${fs_bar 6, 140 /} 
+${color3}${font DroidSansMono Nerd Font:size=9}${alignr}${fs_used /} / ${fs_size /}
+${color3}${font DroidSansMono Nerd Font:size=9}Home: ${fs_used_perc /home}%${alignr} ${color1}${fs_bar 6, 140 /home} 
+${color3}${font DroidSansMono Nerd Font:size=9}${alignr}${fs_used /home} / ${fs_size /home}
+
+
+${color1}${font Oswald:size=10:bold}NETWORK ${color2} ${hr 2}
+${color3}${font DroidSansMono Nerd Font:size=9}Down: ${downspeed enp0s31f6}/s ${alignr}Up: ${upspeed enp0s31f6} /s
+${color1}${color1}${downspeedgraph enp0s31f6 20,90 444444 eeeeee} ${alignr}${color1}${upspeedgraph enp0s31f6 20,90 444444 eeeeee}
+${color3} Total: ${totaldown enp0s31f6} ${alignr}Total: ${totalup enp0s31f6}
+
+]];
